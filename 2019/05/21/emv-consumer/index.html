@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Homels</title>
+  <title>支付二维码-EMV merchant | Homels</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Homels">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="&amp;nbsp;&amp;emsp;&amp;emsp;今天是5月21号，离上次更新过去了差不多一个月，现在更新EMV的第二篇，也是实习期间学到的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支付二维码-EMV merchant">
+<meta property="og:url" content="http://yoursite.com/2019/05/21/emv-consumer/index.html">
 <meta property="og:site_name" content="Homels">
+<meta property="og:description" content="&amp;nbsp;&amp;emsp;&amp;emsp;今天是5月21号，离上次更新过去了差不多一个月，现在更新EMV的第二篇，也是实习期间学到的。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/img/emv-consumer-1.png">
+<meta property="og:updated_time" content="2019-05-21T06:43:11.623Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Homels">
+<meta name="twitter:title" content="支付二维码-EMV merchant">
+<meta name="twitter:description" content="&amp;nbsp;&amp;emsp;&amp;emsp;今天是5月21号，离上次更新过去了差不多一个月，现在更新EMV的第二篇，也是实习期间学到的。">
+<meta name="twitter:image" content="http://yoursite.com/img/emv-consumer-1.png">
   
     <link rel="alternative" href="/atom.xml" title="Homels" type="application/atom+xml">
   
@@ -144,37 +150,61 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-emv-consumer" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      支付二维码-EMV merchant
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/21/emv-consumer/" class="archive-article-date">
+
+        
+        <a href="/2019/05/21/emv-consumer/" class="archive-article-date">
   	<time datetime="2019-05-21T05:49:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-21</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/21/emv-consumer/">支付二维码-EMV merchant</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&nbsp;<br>&emsp;&emsp;今天是5月21号，离上次更新过去了差不多一个月，现在更新EMV的第二篇，也是实习期间学到的。<br><a id="more"></a><br>&emsp;&emsp;这次是持卡人码，即被扫码，在消费过程中，持卡人将自己终端内生成的持卡人码展示给商家，商家使用“扫枪”扫描持卡人，完成消费。</p>
+<p>&emsp;&emsp;EMVCo官方同样也给出了持卡人码的规范文档，文档内容：<a href="https://github.com/homels/up_qrcodeGenerator" target="_blank" rel="noopener">文档</a><br>&emsp;&emsp;上篇已经对EMV码做过介绍，这里直接介绍EMV持卡人码的生成规则。持卡人码同样是字符串，将字符串按照特定的规则解析，实现转账功能。和EMV商户码字符串不同的主要有两点：1、持卡人码在生成后经过了Base64编码。2、持卡人码字符串包括两部分，一部分是商户端可以处理的数据，另一部分不需要商户端处理，对于不需要处理的数据，直接将数据转发给收单方即可。</p>
+<h2 id="编码格式、内容"><a href="#编码格式、内容" class="headerlink" title="编码格式、内容"></a>编码格式、内容</h2><p>&emsp;&emsp;持卡人码也是TLV格式，持卡人码要求必须以Tag85开头，后面要么是一个tag61,要么是两个tag61+一个tag62。85域里是持卡人二维码模板版本信息，61域叫应用程序模板，62域叫公共数据模板。<br>&emsp;&emsp;tag85当前的值为CPV01，即一个EMV持卡人码的开头为8505CPV01，tag61包含多个子域，其中，4F子域是必须存在的，57、5A两个子域必须有一个存在；5A子域表示的是持卡人码的PAN，而57还包含了其它信息，57的格式为：pan码+‘D’+YYMM（表示截止日期）+三位服务编码+其它数据+‘F’。61域的其它子域如下图所示。<br><img src="/img/emv-consumer-1.png" alt="avatar"><br>&emsp;&emsp;62子域和61子域的内容完全相同，但是相同的子域内容不会同时出现在61和62两个域内，即如果持卡人码的格式是两个61域+一个62域，61域里应该是区别部分，62域里应该是公共部分。</p>
+<p>&emsp;&emsp;将以上内容拼接完成后，通过base64编码，即可生成标准的EMV持卡人码</p>
+<p>下面是我自己写的一个生成各种支付二维码的安卓程序.<a href="https://github.com/homels/up_qrcodeGenerator" target="_blank" rel="noopener">程序</a></p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的支持<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -187,93 +217,117 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/05/21/emv-consumer/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/24/emv-merchant/" class="archive-article-date">
-  	<time datetime="2019-04-24T15:18:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-24</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/04/24/emv-merchant/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">支付二维码-EMV merchant</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/24/emv-merchant/">支付二维码-EMV merchant</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/业务相关//" class="article-tag-list-link color5">业务相关</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#编码格式、内容"><span class="toc-number">1.</span> <span class="toc-text">编码格式、内容</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/11/java后台校招经验/" class="archive-article-date">
-  	<time datetime="2019-01-11T11:19:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/11/java后台校招经验/">我的Java后台岗求职经验</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/校招经验//" class="article-tag-list-link color5">校招经验</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -296,8 +350,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
