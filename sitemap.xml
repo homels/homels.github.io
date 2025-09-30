@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/about/index.html</loc>
+    
+    <lastmod>2025-09-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/2025/05/14/VUE3-uni-app%E6%8A%A5%E9%94%99Package-subpath-dist-vuex-esm-bundler-js-is-not-defined-by-exports-in-uni-app-vue3-0-node-modules-vuex-package-json/</loc>
     
     <lastmod>2025-09-30</lastmod>
@@ -39,15 +48,6 @@
   
   <url>
     <loc>http://example.com/tags/index.html</loc>
-    
-    <lastmod>2025-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/about/index.html</loc>
     
     <lastmod>2025-09-29</lastmod>
     
