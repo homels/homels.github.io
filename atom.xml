@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-09-29T09:17:54.984Z</updated>
+  <updated>2025-09-30T07:52:04.728Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,48 +17,60 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>补档-EMV商户码</title>
-    <link href="http://example.com/2025/09/29/%E8%A1%A5%E6%A1%A3-EMV%E5%95%86%E6%88%B7%E7%A0%81/"/>
-    <id>http://example.com/2025/09/29/%E8%A1%A5%E6%A1%A3-EMV%E5%95%86%E6%88%B7%E7%A0%81/</id>
-    <published>2025-09-29T07:52:26.000Z</published>
-    <updated>2025-09-29T09:17:54.984Z</updated>
+    <title>补档-EMV持卡人码</title>
+    <link href="http://example.com/2025/09/30/%E8%A1%A5%E6%A1%A3-EMV%E6%8C%81%E5%8D%A1%E4%BA%BA%E7%A0%81/"/>
+    <id>http://example.com/2025/09/30/%E8%A1%A5%E6%A1%A3-EMV%E6%8C%81%E5%8D%A1%E4%BA%BA%E7%A0%81/</id>
+    <published>2025-09-30T07:47:11.000Z</published>
+    <updated>2025-09-30T07:52:04.728Z</updated>
     
-    <content type="html"><![CDATA[<p>aaaaa<br>aaaaaaaaaaaaaa</p><p>aaaaaaa</p>]]></content>
+    <content type="html"><![CDATA[<blockquote><h1 id="为什么要补档"><a href="#为什么要补档" class="headerlink" title="为什么要补档"></a>为什么要补档</h1><p>补档文章均首发于2019年-2020年这一年多的时间里，由于疏忽，这段时间用hexo写的博客都没有做备份，源文件也被埋葬到了一块打不开的硬盘里。<br>好在经过回忆，那时写的大部分博客内容较为浅显，基本在网上有更加成熟的其它博客，故无需对其中的大部分文章进行补档。<br>回忆起来，大概只有几篇比较冷门领域的博客，笔者经常收到读者的交流邮件，故决定对这几篇文章逐步进行补档。所谓逐步，就是慢慢补，想起来就补，慢慢补。<br>补充：补档的原则是，不进行勘误、调整、补充和删减，仅完全按照原文进行复制粘贴。</p></blockquote><h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>今天是5月21号，离上次更新过去了差不多一个月，现在更新EMV的第二篇，也是实习期间学到的。</p><p>这次是持卡人码，即被扫码，在消费过程中，持卡人将自己终端内生成的持卡人码展示给商家，商家使用“扫枪”扫描持卡人，完成消费。<br>EMVCo官方同样也给出了持卡人码的规范文档，文档内容：<a href="https://github.com/homels/up_qrcodeGenerator">文档</a><br>上篇已经对EMV码做过介绍，这里直接介绍EMV持卡人码的生成规则。持卡人码同样是字符串，将字符串按照特定的规则解析，实现转账功能。和EMV商户码字符串不同的主要有两点：1、持卡人码在生成后经过了Base64编码。2、持卡人码字符串包括两部分，一部分是商户端可以处理的数据，另一部分不需要商户端处理，对于不需要处理的数据，直接将数据转发给收单方即可。</p><h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><h2 id="编码格式"><a href="#编码格式" class="headerlink" title="编码格式"></a>编码格式</h2><p>持卡人码也是TLV格式，持卡人码要求必须以Tag85开头，后面要么是一个tag61,要么是两个tag61+一个tag62。85域里是持卡人二维码模板版本信息，61域叫应用程序模板，62域叫公共数据模板。<br>tag85当前的值为CPV01，即一个EMV持卡人码的开头为8505CPV01，tag61包含多个子域，其中，4F子域是必须存在的，57、5A两个子域必须有一个存在；5A子域表示的是持卡人码的PAN，而57还包含了其它信息，57的格式为：pan码+‘D’+YYMM（表示截止日期）+三位服务编码+其它数据+‘F’。61域的其它子域如下图所示。</p><p><img src="https://github.com/homels/homels.github.io/blob/master/img/emv-consumer-1.png" alt="1"></p><h2 id="编码内容"><a href="#编码内容" class="headerlink" title="编码内容"></a>编码内容</h2><p>62子域和61子域的内容完全相同，但是相同的子域内容不会同时出现在61和62两个域内，即如果持卡人码的格式是两个61域+一个62域，61域里应该是区别部分，62域里应该是公共部分。<br>将以上内容拼接完成后，通过base64编码，即可生成标准的EMV持卡人码</p><h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><p>下面是我自己写的一个生成各种支付二维码的安卓程序.程序</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;aaaaa&lt;br&gt;aaaaaaaaaaaaaa&lt;/p&gt;
-&lt;p&gt;aaaaaaa&lt;/p&gt;
-</summary>
+    <summary type="html">&lt;blockquote&gt;
+&lt;h1 id=&quot;为什么要补档&quot;&gt;&lt;a href=&quot;#为什么要补档&quot; class=&quot;headerlink&quot; title=&quot;为什么要补档&quot;&gt;&lt;/a&gt;为什么要补档&lt;/h1&gt;&lt;p&gt;补档文章均首发于2019年-2020年这一年多的时间里，由于疏忽，这段时间用hex</summary>
       
     
     
     
-    <category term="aaa" scheme="http://example.com/categories/aaa/"/>
+    <category term="支付业务" scheme="http://example.com/categories/%E6%94%AF%E4%BB%98%E4%B8%9A%E5%8A%A1/"/>
     
     
-    <category term="12345" scheme="http://example.com/tags/12345/"/>
+    <category term="EMV" scheme="http://example.com/tags/EMV/"/>
+    
+    <category term="TLV" scheme="http://example.com/tags/TLV/"/>
+    
+    <category term="支付" scheme="http://example.com/tags/%E6%94%AF%E4%BB%98/"/>
     
   </entry>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://example.com/2025/09/29/hello-world/"/>
-    <id>http://example.com/2025/09/29/hello-world/</id>
-    <published>2025-09-29T02:53:01.078Z</published>
-    <updated>2025-09-29T02:53:01.078Z</updated>
+    <title>补档-EMV商户码</title>
+    <link href="http://example.com/2025/09/29/%E8%A1%A5%E6%A1%A3-EMV%E5%95%86%E6%88%B7%E7%A0%81/"/>
+    <id>http://example.com/2025/09/29/%E8%A1%A5%E6%A1%A3-EMV%E5%95%86%E6%88%B7%E7%A0%81/</id>
+    <published>2025-09-29T07:52:26.000Z</published>
+    <updated>2025-09-30T07:50:51.432Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<blockquote><h1 id="为什么要补档"><a href="#为什么要补档" class="headerlink" title="为什么要补档"></a>为什么要补档</h1><p>补档文章均首发于2019年-2020年这一年多的时间里，由于疏忽，这段时间用hexo写的博客都没有做备份，源文件也被埋葬到了一块打不开的硬盘里。<br>好在经过回忆，那时写的大部分博客内容较为浅显，基本在网上有更加成熟的其它博客，故无需对其中的大部分文章进行补档。<br>回忆起来，大概只有几篇比较冷门领域的博客，笔者经常收到读者的交流邮件，故决定对这几篇文章逐步进行补档。所谓逐步，就是慢慢补，想起来就补，慢慢补。<br>补充：补档的原则是，不进行勘误、调整、补充和删减，仅完全按照原文进行复制粘贴。</p></blockquote><h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>最近在公司实习，收获还是蛮大的，今天是4月24号，离实习结束还有两天，简单总结一下实习学到的东西。</p><p>来实习主要是学到了两方面的东西吧，一边是Android的一些基础，一边是相关的一些业务，顺带还了解了下公司的开发部门到底是怎么运作的。</p><p>关于Android的部分是个大坑，以后填，所以接下来几天写一些业务上的东西，也就是这两个多月本人一直在打交道的——支付二维码。<br>先来说说EMV码，其实EMV二维码分两种，一种是商户码，一种是持卡人码；商户码，也就是主扫码，就是你去商店付款时，用手机APP去扫的店家的二维码，持卡人码，也就是被扫码，就是你去一些大型商店付款时，收银员用扫枪扫你的APP付款页面的那个码。本篇先只说说商户码。</p><p>说之前先声明下，这里的所有内容，都是本人在阅读了EMV的官方文档后，根据自己的理解写下的（所有部分均已经过验证），想由于规范内容较多，这里只能简单介绍下，想深究可以下载这里的EMV-mervhant文档，或去它的官网下载最新版文档。<a href="https://github.com/homels/up_qrcodeGenerator">文档</a><br>什么是EMV码，首先看看什么是EMV：<br>EMV 标准是由国际三大银行卡组织–Europay(欧陆卡，已被万事达收购）、MasterCard（万事达卡）和Visa（维萨）共同发起制定的银行卡从磁条卡向智能IC卡转移的技术标准，是基于IC卡的金融支付标准，已成为公认的全球统一标准。EMV迁移是按照EMV2000标准，在发卡、业务流程、安全控管、受理市场、信息转接等多个环节实施推进银行磁条卡向芯片卡技术的升级，即把现在使用磁条的银行卡改换成使用IC卡的银行卡。根据新的游戏规则，从2006年起，伪卡损失责任将按照是否符合EMV标准来划分，也就是说，如果交易中的一方符合EMV标准，而另一方不符合，将由不符合EMV标准的一方承担全部责任。- 定义卡片与终端间应用处理规范.<br>这里是EMV标准的定义，通俗来说，就是世界上的几个大的卡组织一起商量，建立的一个国际通用的金融支付标准，我所学习的EMV二维码，应该是属于这个标准的一部分的。<br>首先，接触过二维码的应该都知道，二维码的本质其实还是字符串，是二维化的字符串，我们在使用扫描设备扫描二维码以后，实际是得到一串字符串的，再将字符串按照特定的规则解析，就实现了二维码各种各样的功能。<br>所以本篇的重点就是讲讲EMV-商户码的字符串编码、解码过程。</p><h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><h2 id="编码格式"><a href="#编码格式" class="headerlink" title="编码格式"></a>编码格式</h2><p>EMV商户码是按照TLV格式进行编码的，即Tag-Length-Value这种格式，Tag表示值的意义，Length表示值的长度，value即值，如：00 02 01表示，tag 00的长度为2，值为01。<br>特别需要注意TLV格式是支持嵌套的，即它的值可以是一个新的TLV字串，即TL(TLVTLV)这种格式也是允许的。<br>这种编码格式即保证了一串字符串含义的唯一性，又保证了灵活性。</p><h2 id="编码内容"><a href="#编码内容" class="headerlink" title="编码内容"></a>编码内容</h2><p>图中表示的即一个EMV商户码 必须&#x2F;可能 包含的所有tag以及tag的含义，其中，tag53之前的为必填项，tag53之后的则选填。</p><p><img src="https://github.com/homels/homels.github.io/blob/master/img/emv-merchant-1.png" alt="1"></p><p>下面具体说明下：<br>比如按照EMV二维码规范要求，版本号必须位于编码字串的首位，所以编码字串的开头就应该是：000201，接着需要说明要编码的字串是表示动态码还是静态码，动态码即只能使用一次，静态码可以重复多次使用。这里我们如果是生成静态码，那么就是010211（11表示静态码，12表示动态码，具体参见文档说明）<br>对于tag02——51，它表示的是这个商户属于哪个支付系统，比如是visa的商户，那么他就应该包含02&#x2F;03 tag，然后后面是他的商户唯一编码，比如000001，那么这里就应该编码为020600001，支付系统和tag的具体对照关系见下图：</p><p><img src="https://github.com/homels/homels.github.io/blob/master/img/emv-merchant-2.png" alt="2"></p><p>如果下图中不包含的支付系统呢，比如是新加坡的商户，下面的对照图里是不包括新加坡的支付系统的，就需要用到26-51这些tag，由这些不包含在上面的支付系统的其它支付系统自定义自己的编码规则（例如按照新加坡的定义，他们应该包含tag33和51，同时包括一些自定义字串）<br>  再下面，国家码应该是三位的ISO国家编码，货币也应该是三位的ISO货币编码，以及邮编、城市等，都按照对应的ISO规范来进行编码（具体参见文档）<br>  再再下面，62和64两个tag里面是嵌套的其它TLV，具体见下面两张图</p><p><img src="https://github.com/homels/homels.github.io/blob/master/img/emv-merchant-3.png" alt="3"><br><img src="https://github.com/homels/homels.github.io/blob/master/img/emv-merchant-4.png" alt="4"></p><p>再再再下面，tag63是在字串最末尾的，必须出现的tag，毕竟涉及钱的事都是很重要的事，所以在你扫描到二维码的字串后，是需要进行一个校验的，用来防止一些了解EMV规范同时又别有用心的人修改了部分tag。tag63就是一个CRC校验位，利用CRC算法对前面所有字符串进行编码，得到4长度的字节，加在字串末尾，这样当程序扫描到一个二维码后，首先用同样的操作对前面的字串进行CRC校验，和末尾四个字节比较，就可以确定该二维码是否被更改过。（具体CRC校验过程较为繁琐，不做说明）<br>一个典型的EMV商户码如下：</p><blockquote><p>00020101021229300012D156000000000510A93FO3230Q31280012D15600000001030812345678520441115802CN5914BEST TRANSPORT6007BEIJING64200002ZH0104 最佳运输 0202 北京540523.7253031565502016233030412340603***0708A60086670902ME91320016A0112233449988770708123456786304A13A</p></blockquote><p>可以解析如下：<br>版本号：0002（01）<br>动态码：0102（12）<br>支付系统tag29、31（自定）：里面是嵌套TLV，格式并不是EMV文档的标准，而是自定标准<br>商户类别：4111<br>国家编码：CN<br>商户名：BEST TRANSPORT<br>。。。<br>校验位：A13A</p><h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><p>下面是我自己写的一个生成各种支付二维码的安卓程序.程序</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
+    <summary type="html">&lt;blockquote&gt;
+&lt;h1 id=&quot;为什么要补档&quot;&gt;&lt;a href=&quot;#为什么要补档&quot; class=&quot;headerlink&quot; title=&quot;为什么要补档&quot;&gt;&lt;/a&gt;为什么要补档&lt;/h1&gt;&lt;p&gt;补档文章均首发于2019年-2020年这一年多的时间里，由于疏忽，这段时间用hex</summary>
       
     
     
     
+    <category term="支付业务" scheme="http://example.com/categories/%E6%94%AF%E4%BB%98%E4%B8%9A%E5%8A%A1/"/>
+    
+    
+    <category term="EMV" scheme="http://example.com/tags/EMV/"/>
+    
+    <category term="TLV" scheme="http://example.com/tags/TLV/"/>
+    
+    <category term="支付" scheme="http://example.com/tags/%E6%94%AF%E4%BB%98/"/>
     
   </entry>
   

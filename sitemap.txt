@@ -1,8 +1,10 @@
+http://example.com/2025/09/30/%E8%A1%A5%E6%A1%A3-EMV%E6%8C%81%E5%8D%A1%E4%BA%BA%E7%A0%81/
 http://example.com/2025/09/29/%E8%A1%A5%E6%A1%A3-EMV%E5%95%86%E6%88%B7%E7%A0%81/
 http://example.com/categories/index.html
 http://example.com/tags/index.html
 http://example.com/about/index.html
-http://example.com/2025/09/29/hello-world/
 http://example.com/
-http://example.com/tags/12345/
-http://example.com/categories/aaa/
+http://example.com/tags/EMV/
+http://example.com/tags/TLV/
+http://example.com/tags/%E6%94%AF%E4%BB%98/
+http://example.com/categories/%E6%94%AF%E4%BB%98%E4%B8%9A%E5%8A%A1/
