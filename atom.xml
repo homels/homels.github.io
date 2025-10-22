@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-09-30T08:30:04.523Z</updated>
+  <updated>2025-10-22T09:32:35.580Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>node编译vue项目，build时提示： javascript out of memory</title>
+    <link href="http://example.com/2025/10/22/node%E7%BC%96%E8%AF%91%E6%8A%A5%E9%94%99/"/>
+    <id>http://example.com/2025/10/22/node%E7%BC%96%E8%AF%91%E6%8A%A5%E9%94%99/</id>
+    <published>2025-10-22T09:31:46.000Z</published>
+    <updated>2025-10-22T09:32:35.580Z</updated>
+    
+    <content type="html"><![CDATA[<p>现象：node编译vue项目，build时提示： javascript out of memory</p><hr><p>原因：node编译时，用的是Google的V8引擎进行编译，V8引擎编译时默认分配的内存大小只有1.4G（对于64位系统来说）。<br>当项目比较大时，会出现1.4G内存太小导致的溢出的问题。</p><hr><p>解决：node提供了自定义编译内存的办法，我是通过在打包脚本上增加一行代码解决的：</p><p><code>export NODE_OPTIONS=&quot;--max-old-space-size=4096&quot;</code></p><p>即让编译时使用的内存为4096M。</p><p>由于我是流水线打包，所以需要在每次执行脚本时，手动改一下环境变量，如果是本地打包的话，其实一劳永逸的设置node一次就可以。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;现象：node编译vue项目，build时提示： javascript out of memory&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;原因：node编译时，用的是Google的V8引擎进行编译，V8引擎编译时默认分配的内存大小只有1.4G（对于64位系统来说）。&lt;br&gt;当项目比较大时</summary>
+      
+    
+    
+    
+    <category term="web前端" scheme="http://example.com/categories/web%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="vue" scheme="http://example.com/tags/vue/"/>
+    
+  </entry>
   
   <entry>
     <title>补档-EMV持卡人码</title>
