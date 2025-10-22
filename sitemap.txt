@@ -1,3 +1,4 @@
+http://example.com/2025/10/22/Nginx%E6%8F%90%E7%A4%BA413-Request-Entity-Too-Large%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/
 http://example.com/2025/10/22/node%E7%BC%96%E8%AF%91%E6%8A%A5%E9%94%99/
 http://example.com/about/index.html
 http://example.com/2025/05/14/VUE3-uni-app%E6%8A%A5%E9%94%99Package-subpath-dist-vuex-esm-bundler-js-is-not-defined-by-exports-in-uni-app-vue3-0-node-modules-vuex-package-json/
@@ -10,5 +11,6 @@ http://example.com/tags/EMV/
 http://example.com/tags/TLV/
 http://example.com/tags/%E6%94%AF%E4%BB%98/
 http://example.com/tags/vue/
+http://example.com/tags/Nginx/
 http://example.com/categories/%E6%94%AF%E4%BB%98%E4%B8%9A%E5%8A%A1/
 http://example.com/categories/web%E5%89%8D%E7%AB%AF/

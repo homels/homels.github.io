@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-10-22T09:32:35.580Z</updated>
+  <updated>2025-10-22T09:52:00.898Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Nginx提示413 Request Entity Too Large解决方案</title>
+    <link href="http://example.com/2025/10/22/Nginx%E6%8F%90%E7%A4%BA413-Request-Entity-Too-Large%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>http://example.com/2025/10/22/Nginx%E6%8F%90%E7%A4%BA413-Request-Entity-Too-Large%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</id>
+    <published>2025-10-22T09:45:29.000Z</published>
+    <updated>2025-10-22T09:52:00.898Z</updated>
+    
+    <content type="html"><![CDATA[<p>现象：请求发出去以后，提示413 Request Entity Too Large</p><hr><p>原因：看就知道是因为请求太大了，因为是个上传文件的接口，没办法压缩请求大小，所以需要给Nginx配置一下最大请求体（默认为1M）</p><hr><p>解决：<br>添加client_max_body_size配置可解决</p><p><code>client_max_body_size 30M;</code></p><p>如果配置在http块代表全局生效、如果配置在server块代表单个站点生效、如果配置在location块代表特定路径生效。</p><p>添加完成后重启Nginx即可解决。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;现象：请求发出去以后，提示413 Request Entity Too Large&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;原因：看就知道是因为请求太大了，因为是个上传文件的接口，没办法压缩请求大小，所以需要给Nginx配置一下最大请求体（默认为1M）&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;解决：&lt;br</summary>
+      
+    
+    
+    
+    <category term="web前端" scheme="http://example.com/categories/web%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="Nginx" scheme="http://example.com/tags/Nginx/"/>
+    
+  </entry>
   
   <entry>
     <title>node编译vue项目，build时提示： javascript out of memory</title>
